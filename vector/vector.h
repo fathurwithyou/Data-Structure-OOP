@@ -14,6 +14,9 @@ public:
   Vector(const Vector<T> &);
   Vector(int);
   Vector(int, const T &);
+
+  Vector<T>& operator=(const Vector<T>&);
+
   int size() const; 
   void push_back(const T &);
   void pop_back(); // delete back element (not literal)

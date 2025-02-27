@@ -11,7 +11,7 @@ Vector<T>::Vector(const Vector<T> &tmp) : sz(tmp.sz), index(tmp.index) {
 
 template <typename T>
 Vector<T>::Vector(int n) : sz(n), index(n), data(new T[n]) {
-  for (int i = 0; i < n; i++) data[i] = 0;
+  for (int i = 0; i < n; i++) data[i] = T();
 }
 
 template <typename T>
@@ -19,6 +19,18 @@ Vector<T>::Vector(int cap, const T &x) : sz(cap), index(cap), data(new T[cap]) {
   for (int i = 0; i < cap; ++i) {
     data[i] = x;
   }
+}
+
+template <typename T>
+Vector<T>& Vector<T>::operator=(const Vector<T>& tmp){
+  if(this != &tmp){
+    delete []data;
+    sz = tmp.sz;
+    index = tmp.index;
+    data = new T[sz];
+    for(int i = 0; i < index; i++) data[i] = tmp.data[i];
+  }
+  return *this;
 }
 
 template <typename T>
