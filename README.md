@@ -7,6 +7,10 @@ Include the .h files in your main program. For compiling, make sure to link the 
 ```
 g++ <file.cpp> -I.
 ```
+For example, 
+```
+g++ example.cpp -I.
+```
 You can also check the example.cpp for better example.
 
 ## License
