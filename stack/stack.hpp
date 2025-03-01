@@ -10,6 +10,9 @@ private:
 public:
   Stack();              // shallow/bitwise copy
   Stack(const Stack &); // deep copy
+
+  // Stack<T>& operator=(const Stack<T>&);
+
   T top();              // get top of stack
   void pop();           // pop top of stack
   int size();           // get the size of stack
