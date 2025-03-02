@@ -5,6 +5,7 @@
 #include <string>
 #include <stdexcept>
 
+// Bitset class implementation based on https://en.cppreference.com/w/cpp/utility/bitset
 template <std::size_t N>
 class Bitset {
  public:
