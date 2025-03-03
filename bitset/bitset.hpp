@@ -2,12 +2,16 @@
 #define BITSET_HPP
 
 #include <cstddef>
-#include <string>
 #include <stdexcept>
+#include <string>
 
-// Bitset class implementation based on https://en.cppreference.com/w/cpp/utility/bitset
+// Bitset class implementation based on
+// https://en.cppreference.com/w/cpp/utility/bitset
 template <std::size_t N>
 class Bitset {
+ private:
+  std::array<uint64_t, (N + 63) / 64> bits;
+
  public:
   class reference;
 
