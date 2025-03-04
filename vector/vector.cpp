@@ -1,4 +1,4 @@
-#include "vector.h"
+#include "vector.hpp"
 
 template <typename T>
 Vector<T>::Vector() : sz(0), index(0), data(nullptr) {}
@@ -22,13 +22,21 @@ Vector<T>::Vector(int cap, const T &x) : sz(cap), index(cap), data(new T[cap]) {
 }
 
 template <typename T>
-Vector<T>& Vector<T>::operator=(const Vector<T>& tmp){
-  if(this != &tmp){
-    delete []data;
+T &Vector<T>::operator[](const int &i) {
+  if (i >= index || i < 0) {
+    throw std::runtime_error("Index out of bound.");
+  }
+  return data[i];
+}
+
+template <typename T>
+Vector<T> &Vector<T>::operator=(const Vector<T> &tmp) {
+  if (this != &tmp) {
+    delete[] data;
     sz = tmp.sz;
     index = tmp.index;
     data = new T[sz];
-    for(int i = 0; i < index; i++) data[i] = tmp.data[i];
+    for (int i = 0; i < index; i++) data[i] = tmp.data[i];
   }
   return *this;
 }
@@ -36,13 +44,7 @@ Vector<T>& Vector<T>::operator=(const Vector<T>& tmp){
 template <typename T>
 void Vector<T>::push_back(const T &x) {
   if (index == sz) {
-    int nsz = (!sz) ? 1 : sz * 2;
-    T *ndata = new T[nsz];
-    for (int i = 0; i < index; i++) ndata[i] = data[i];
-
-    delete[] data;
-    data = ndata;
-    sz = nsz;
+    resize_();
   }
   data[index++] = x;
 }
@@ -53,25 +55,8 @@ int Vector<T>::size() const {
 }
 
 template <typename T>
-T Vector<T>::get(const int &i) {
-  if (i >= index || i < 0) {
-    throw std::runtime_error("Index out of bound.");
-  }
-  return data[i];
-}
-
-template <typename T>
-void Vector<T>::set(const int &i, const T &val) {
-  if (i >= 0 && i < index) {
-    data[i] = val;
-  } else {
-    throw std::runtime_error("Index out of bound.");
-  }
-}
-
-template <typename T>
 void Vector<T>::pop_back() {
-  if (!index) index--;
+  if (!index) --index;
 }
 
 template <typename T>
@@ -107,12 +92,28 @@ void Vector<T>::reverse() {
 }
 
 template <typename T>
+typename Vector<T>::Iterator Vector<T>::begin() {
+  return Iterator(data);
+}
+
+template <typename T>
+typename Vector<T>::Iterator Vector<T>::end() {
+  return Iterator(data + index);
+}
+
+template <typename T>
+void Vector<T>::resize_() {
+  sz *= 2;
+  T *ndata = new T[sz];
+  for (int i = 0; i < index; i++) ndata[i] = data[i];
+  delete[] data;
+  data = ndata;
+}
+
+template <typename T>
 void Vector<T>::assign(const int &nsz, const T &x) {
   if (nsz > sz) {
-    T *ndata = new T[nsz];
-    for (int i = 0; i < nsz; i++) ndata[i] = x;
-    delete[] data;
-    data = ndata;
+    resize();
   } else {
     for (int i = 0; i < sz; i++) data[i] = x;
   }
