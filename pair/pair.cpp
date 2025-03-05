@@ -1,5 +1,3 @@
-#include "pair.h"
-
 template <typename T, typename U>
 Pair<T, U>::Pair() : fi(), se() {}
 template <typename T, typename U>

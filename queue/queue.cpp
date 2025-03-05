@@ -1,5 +1,3 @@
-#include "queue.h"
-
 template <typename T>
 Queue<T>::Queue() : index(0), sz(0), data(nullptr) {}
 
