@@ -1,7 +1,9 @@
 #include <iostream>
-#include "queue/queue.h"
-#include "stack/stack.h"
-#include "vector/vector.h"
+#include "queue/queue.hpp"
+#include "stack/stack.hpp"
+#include "vector/vector.hpp"
+#include "pair/pair.hpp"
+#include "bitset/bitset.hpp"
 using namespace std;
 
 int main(){
@@ -15,12 +17,28 @@ int main(){
     cout << s.top() << endl;
 
     Vector<Vector<int>> v(10, Vector<int>(10));
-    cout << v.size() << " " << v.get(0).size();
-    for(int i = 0; i < v.size(); i++){
-        for(int j = 0; j < v.get(0).size(); j++){
-            cout << v.get(i).get(j) << " ";
+    v[0][0] = INT_MAX;
+
+    for(auto it = v.begin(); it != v.end(); it++){
+        for(auto it2 = it->begin(); it2 != it->end(); it2++){
+            cout << *it2 << " ";
         }
         cout << endl;
     }
+
+    Pair<Pair<int, int>, int> p(Pair(99,1), 0);
+    cout << p.first().first() << p.first().second() << p.second() << endl; 
+
+    Bitset<10> b;
+    Bitset<10> b2;
+    // fill the bitset with 1s
+    b.set();
+    // fill the bitset with 0s
+    b2.set(0, false);
+    cout << b.to_string() << endl;
+    cout << b2.to_string() << endl;
+    Bitset b3 = b & b2;
+    cout << b3.to_string() << endl;
+    
     return 0;
 }
